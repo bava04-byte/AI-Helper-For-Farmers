@@ -1,0 +1,12 @@
+streamlit
+torch
+torchvision
+pillow
+scipy
+sounddevice
+speechrecognition
+transformers
+googletrans==4.0.0-rc1
+httpx==0.13.3
+httpcore==0.9.1
+h11==0.9.0
