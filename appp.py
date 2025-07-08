@@ -12,14 +12,7 @@ st.set_page_config(page_title="Smart Crop Issue Detector", layout="centered")
 st.title("🌾 Smart Crop Issue Detector")
 st.markdown("Upload an image of your crop and describe the problem using text or voice.")
 
-# --- Sidebar Accuracy ---
-with st.sidebar:
-    st.markdown("## 📊 Model Accuracy")
-    try:
-        acc = get_pytorch_model_accuracy()
-        st.success(f"🖼️ Image Model Accuracy: {acc}%")
-    except Exception as e:
-        st.error(f"⚠️ Accuracy check failed: {e}")
+
 
 # --- Crop Type Selection ---
 crop_type = st.selectbox("🌱 Select Crop Type", ["Tomato", "Potato"])
