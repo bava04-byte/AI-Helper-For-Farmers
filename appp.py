@@ -4,8 +4,6 @@ from utils.diagnose import analyze_crop_issue
 from utils.metrics import get_pytorch_model_accuracy
 import speech_recognition as sr
 import tempfile
-import sounddevice as sd
-import scipy.io.wavfile as wav
 import os
 from googletrans import Translator
 
@@ -49,28 +47,8 @@ description = st.text_area(
 )
 
 # --- Voice Input Section ---
-st.subheader("🎙️ Or Use Your Voice (Optional)")
+st.subheader("🎙️ Or Upload Voice Description (Optional)")
 voice_input_text = ""
-
-with st.expander("🎤 Record Live Voice"):
-    duration = st.slider("Recording duration (seconds)", 1, 10, 3)
-    if st.button("🔴 Record Now"):
-        st.info("Recording...")
-        fs = 16000
-        try:
-            recording = sd.rec(int(duration * fs), samplerate=fs, channels=1)
-            sd.wait()
-            temp_wav_path = os.path.join(tempfile.gettempdir(), "live_voice_input.wav")
-            wav.write(temp_wav_path, fs, recording)
-            st.audio(temp_wav_path, format="audio/wav")
-
-            recognizer = sr.Recognizer()
-            with sr.AudioFile(temp_wav_path) as source:
-                audio = recognizer.record(source)
-                voice_input_text = recognizer.recognize_google(audio, language="en-IN")
-                st.success(f"🗣️ Voice to Text: {voice_input_text}")
-        except Exception as e:
-            st.error(f"Voice recognition failed: {e}")
 
 with st.expander("📁 Upload a Voice Note (WAV Only)"):
     voice_file = st.file_uploader("Upload Voice Note (WAV)", type=["wav"], key="voice_input")
